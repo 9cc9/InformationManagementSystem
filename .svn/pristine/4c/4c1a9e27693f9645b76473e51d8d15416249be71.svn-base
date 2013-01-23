@@ -1,0 +1,32 @@
+<%= form_for @user do |f| %>
+    <div>
+      <table id="notify_down_list" class="home_list" cellspacing="1">
+        <tr class="index_table_second_specs">
+          <td>账&nbsp;户</td>
+          <td float="left"><%= f.text_field :name %></td>
+        </tr>
+        <tr class="index_table_second_specs">
+          <td>密&nbsp;码</td>
+          <td>
+            <%= f.password_field :password, :id => 'password' %>
+          </td>
+        </tr>
+        <tr class="index_table_second_specs">
+          <td>确认密码</td>
+          <td><%= f.password_field :password, :id => 'passwords' %> </td>
+        </tr>
+
+        <tr class="index_table_second_specs">
+          <td> 姓 名</td>
+          <td><%= f.text_field :name  %></td>
+        </tr>
+        <tr class="index_table_second_specs">
+          <td> 用户角色</td>
+          <td>
+            <%= f.select(:role_id, options_for_select([["操作员", "2"], ["管理员", "1"],["超级管理员","0"]], params[:role_id]), {},{:style => "width:210px;"}) %>
+          </td>
+        </tr>
+        <tr><th colspan="2"><input name="submit"  type="submit" value="创建" onclick="javascript:return judge_password()" /></th></tr>
+      </table>
+<% end %>
+</div>

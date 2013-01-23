@@ -1,0 +1,98 @@
+# encoding: utf-8
+require 'spec_helper'
+
+describe Student do
+  let(:params_student) { {:academy => "电子科大", :doctor_type => "电子科大", :email => "电子科大",
+                          :graduation_time => Time.now,
+                          :is_graduated => false, :major => "电子科大", :name => "电子科大",
+                          :phone_number => "电子科大", :school_number => "201221010307", :teacher_name => "电子科大"} }
+  let(:params_paper) { {:academic_exchange_address => "电子科大", # 报告的地点（4.5类）
+                        :academic_exchange_name => "电子科大", # 学术交流名称（4）
+                        :academic_exchange_publication_name => "电子科大", # 学术交流发表成果名称（4.5类）
+                        :academic_exchange_time => Time.now, # 报告的时间（4.5类）
+                        :academic_exchange_type => "电子科大", # 学术交流类型（4）})
+  } }
+
+  let(:student) { Student.create(params_student) }
+
+  # 测试单表继承的表现形式是否如预期
+  describe "test for single_table inheritance" do
+    it "create a student with multiple achievement items and subclass periodical_papers" do
+      params_paper[:student_id] = student.id
+      AchievementAcademicExchange.create(params_paper)
+      params_paper[:academic_exchange_type] = "电子科大1"
+      AchievementAcademicExchange.create(params_paper)
+      AchievementItem.create({
+                                 :student_id => student.id
+                             })
+      student.achievement_items.count.should == 3
+      student.achievement_academic_exchanges.count.should == 2
+    end
+  end
+
+  # 根据参数列表创建多个条目
+  describe "create achievement and other information items with params" do
+    let(:achievement_item_params) {
+      {"1" => {"paper_title" => "导师", "periodical_name" => "导师", "periodical_type" => "导师", "periodical_volume" => "导师", "sci_impact_factor" => "导师", "jcr" => "导师", "type" => "AchievementPeriodicalPaper"},
+       "2" => {"patent_name" => "专利", "patent_type" => "专利", "patent_id" => "专利", "type" => "AchievementPatent"}}
+    }
+    let(:other_information_item_params) {
+      {"0" => {"project_name" => "项目", "country" => "项目", "university" => "项目", "academy" => "项目", "started_at" => "项目", "ended_at" => "项目", "type" => "OtherStudy"},
+       "2" => {"company" => "单位名称", "company_address" => "单位名称", "company_property" => "单位名称", "job_category" => "单位名称", "type" => "OtherEmployment"}}
+    }
+
+    it "create items" do
+      student.create_items_with_params(AchievementItem, achievement_item_params)
+
+      student.achievement_items.size.should == 2
+      student.achievement_periodical_papers.size == 1
+      student.achievement_patents.size == 1
+    end
+
+    #it "create achievement items" do
+    #  student.create_achievement_items_with_params(achievement_item_params)
+    #end
+    #
+    it "create other information items" do
+      student.create_other_information_items_with_params(other_information_item_params)
+      student.other_information_items.size.should == 2
+      student.other_studies.size == 1
+    end
+
+    # 当创建多个OtherEmployment实例时，只保留一个
+    it "create multiply other employments" do
+      params = {
+          "0" => {"company" => "单位", "company_address" => "单位", "company_property" => "单位", "job_category" => "单位", "type" => "OtherEmployment"},
+          "2" => {"company" => "单位名称", "company_address" => "单位名称", "company_property" => "单位名称", "job_category" => "单位名称", "type" => "OtherEmployment"}
+      }
+      student.create_other_information_items_with_params(params)
+      student.other_information_items.size.should == 2
+      student.other_studies.size == 0
+      student.other_employment.company == "单位"
+    end
+  end
+
+  # 检查当前student是否含有该项目类型
+  describe "check whether student has this project type or not" do
+    let(:project_params) {{:paper_title => "干扰", # 拟定论文题目
+                           :project_type => "电子科技大学优秀博士生出国培养", # 电子科技大学优秀博士生出国培养、教育部学术新人奖、中央高校基本科研业务费、电子科技大学优博选培计划、电子科技大学优博培育基金、电子科技大学优秀博士生学术支持计划项目
+                           :stage => "申请阶段", # 项目当前阶段（申请阶段、立项阶段、答辩阶段）
+                           :status => "待审核", # 项目当前状态（包括待审核、审核通过、审核不通过）
+                           :started_at => Time.now,
+                           :ended_at => Time.now}}
+    before do
+      student.projects.create(project_params)
+      project_params[:project_type] = "教育部学术新人奖"
+      student.projects.create(project_params)
+    end
+
+    it "has this project type" do
+      student.check_project_type("教育部学术新人奖").should == true
+      student.check_project_type("电子科技大学优秀博士生出国培养").should == true
+    end
+    it "hasn't this project type" do
+      student.check_project_type("中央高校基本科研业务费").should == false
+    end
+  end
+
+end

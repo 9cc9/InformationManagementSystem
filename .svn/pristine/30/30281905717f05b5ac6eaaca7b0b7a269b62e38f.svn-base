@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>研究生院学位科信息管理系统</title>
+    <%= stylesheet_link_tag "style", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

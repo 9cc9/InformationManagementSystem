@@ -1,0 +1,99 @@
+#common_table_frist_tr{
+    color: #000000;
+    font-size: 14px;
+    text-align:center;
+    height:20px;
+    background-color:#ccc;
+}
+#common_table_content{
+    color: #000000;
+    font-size: 12px;
+    text-align:center;
+    height:20px;
+    background-color:#FFFFFF;
+}
+#common_table_view_fomat{
+    width:100%;
+    border:0;
+    text-align:center;
+    cellpadding:0px;
+    cellspacing:0px;
+}
+#common_table_fomat{
+    width:100%;
+    cellpadding: 0px;
+    cellspacing: 0px;
+    background-color: #ccc;
+}
+/*.common_table_fomat{
+    width:80%;
+    border:0;
+    cellpadding: 0px;
+    cellspacing: 1px;
+    margin-right: 20px;
+    background-color: #ffaa52;
+}*/
+.foot_div{
+    font-size: 12px;
+    margin-top: 10px;
+    height: 6px;
+    background-color: #2B579A;
+    text-align:center;
+    line-height: 16px;
+    margin-bottom: 30px;
+    clear: both;
+    }
+.content_yiled{
+    margin-left: 12em;
+    height: auto;
+    border:1px;
+    border-color: red;
+    min-height: 580px;
+}
+.a_style{
+    text-decoration:none;
+    color: black;
+}
+
+
+#a_color{
+    color:black;
+}
+.norm_table_have_border{
+    border-style: solid;
+    border-width: 1px;
+    border-color: silver;
+    border-collapse:collapse;
+    width: 88%;
+    float:left;
+    margin-left:40px;
+}
+.norm_table_have_border td{
+    border:1px solid silver;
+    border-width: 1px;
+}
+.norm_table_have_border tfoot{
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    border-collapse:collapse;
+}
+.norm_table_have_border tfoot td{
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    border-collapse:collapse;
+}
+.user{
+   color: black;
+}
+
+.search_form{
+    color: #000000;
+    font-size: 13px;
+}
+
+.loginTable td input{
+    width:150px;
+    background-color: rgb(250, 255, 189);
+}

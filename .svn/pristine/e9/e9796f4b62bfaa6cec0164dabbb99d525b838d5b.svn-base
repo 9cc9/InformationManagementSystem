@@ -1,0 +1,38 @@
+<%= form_for(@student) do |f| %>
+  <% if @student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+      <% @student.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table class="norm_table_have_border" cellspacing="1">
+    <tr class="index_table_second_specs">
+      <td float="right"> 姓名: <%= f.text_field :name %></td>
+      <td float="right"> 学&nbsp;&nbsp; 号: <%= f.text_field :school_number %></td>
+    </tr>
+    <tr class="index_table_second_specs">
+      <td float="right"> 专业: <%= f.text_field :major %></td>
+      <td float="right"> 学&nbsp;&nbsp; 院: <%= f.text_field :academy %></td>
+    </tr>
+    <tr class="index_table_second_specs">
+      <td float="right"> 邮箱: <%= f.text_field :email %></td>
+      <td float="right"> 手机号码: <%= f.text_field :phone_number %></td>
+    </tr>
+    <tr class="index_table_second_specs">
+      <td float="right"> 导师: <%= f.text_field :teacher_name %></td>
+      <td float="right"> 博士类型: <%= f.text_field :doctor_type %></td>
+    </tr>
+    <tr class="index_table_second_specs">
+      <td float="right"> 是否毕业: <%= f.check_box :is_graduated %></td>
+      <td float="right"> 毕业时间: <%= f.datetime_select :graduation_time %></td>
+    </tr>
+    <tr><th colspan="2"><input name="submit"  type="submit" value="创建" /></th></tr>
+  </table>
+<% end %>
+

@@ -1,0 +1,10 @@
+
+#####################################
+# 期刊论文（Periodical Paper Model)：
+# 学术论文题目、期刊名字、发表期卷、期刊类别（SCI、SSCI、EI等）、SCI期刊影响因子、JCR分区
+#####################################
+class PeriodicalPaper < AchievementItem
+  belongs_to :student,
+             :class_name => "Student",
+             :foreign_key => "student_id"
+end

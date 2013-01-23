@@ -1,0 +1,33 @@
+require 'spec_helper'
+
+describe ProjectProcessController do
+
+  describe "GET 'new'" do
+    it "returns http success" do
+      get 'new'
+      response.should be_success
+    end
+  end
+
+  describe "GET 'pending_review_projects_list'" do
+    it "returns http success" do
+      get 'pending_review_projects_list'
+      response.should be_success
+    end
+  end
+
+  describe "GET 'established_projects_list'" do
+    it "returns http success" do
+      get 'established_projects_list'
+      response.should be_success
+    end
+  end
+
+  describe "GET 'pending_defense_projects_list'" do
+    it "returns http success" do
+      get 'pending_defense_projects_list'
+      response.should be_success
+    end
+  end
+
+end

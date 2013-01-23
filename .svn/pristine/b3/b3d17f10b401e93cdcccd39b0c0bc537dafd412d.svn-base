@@ -1,0 +1,47 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  项目管理 >  项目列表</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1">
+  <tr class="index_table_second_specs">
+    <td> 拟定论文题目 </td>
+    <td> <%= @project.paper_title %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目类型</td>
+    <td> <%= @project.project_type %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目开始时间 </td>
+    <td> <%= @project.started_at %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目结束时间 </td>
+    <td> <%= @project.ended_at %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 学生姓名 </td>
+    <td> <%= @student.name %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目总金额</td>
+    <td> <%= @fund_management.total_cost %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 已报销金额</td>
+    <td> <%= @fund_management.consumed_cost %>&nbsp;元</td>
+  </tr>
+
+
+</table>
+

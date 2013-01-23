@@ -1,0 +1,32 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  学生管理 >  编辑学生信息</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+<%= render 'form' %>
+<form>
+  <select name="AchievementItem[:type]">
+    <option value=""> 无 </option>
+    <option value="achievement_patent"> 专利 </option>
+    <option value="achievement_periodial_paper"selected="selected"> 期刊论文 </option>
+    <option value="achievement_conference_paper"> 会议论文 </option>
+    <option value="achievement_academic_exchange"> 学术交流 </option>
+    <option value="achievement_academic_exchange_report"> 学术交流报告 </option>
+    <option value="achievement_learning_experience"> 境外高校学习经历 </option>
+    <option value="achievement_employment_unit"> 就业单位 </option>
+  </select>
+</form>
+
+
+
+<%= link_to '显示', @student %>
+<%= link_to '删除', @student,:confirm => "确定要删除吗？", :method => :destory %>
+<%= link_to '返回', students_path %>

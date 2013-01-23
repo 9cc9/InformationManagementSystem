@@ -1,0 +1,60 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  项目管理 >  文档管理</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1">
+  <tr class="index_table_second_specs">
+    <td> 项目名称</td>
+    <td> <%= @project.paper_title %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目类型</td>
+    <td> <%= @project.project_type %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目总金额</td>
+    <td> <%= @fund_management.total_cost %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 已报销金额</td>
+    <td> <%= @fund_management.consumed_cost %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td colspan="2">文档列表</td>
+  </tr>
+  <% @file_uploader_arrivals.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td colspan="2">
+          附件：
+          <%= image_tag("huixing.png") %>
+          <%= link_to "#{item.file_avatar.url}", :action => "download_local_file", :file_address => item.file_avatar.url %>
+        </td>
+      </tr>
+  <% end %>
+  <tr class="index_table_second_specs">
+    <td colspan="2" id="file_item_span" noWrap>
+      <%= form_tag add_file_item_path(@project.id), {:id => "add_file_form",:multipart => :true} do %>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr class="index_table_second_specs">
+    <td colspan="2">
+      <a href="#" onclick="addFileItem()" id="link">添加文档</a>
+      <a href="#" onclick="document.getElementById('add_file_form').submit();">确认</a>
+    </td>
+  </tr>
+
+
+</table>
+

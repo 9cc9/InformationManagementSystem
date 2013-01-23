@@ -1,0 +1,43 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  项目管理 >  资费管理</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1">
+  <tr class="index_table_second_specs">
+    <td> 项目名称 </td>
+    <td> <%= @project.paper_title %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目类型 </td>
+    <td> <%= @project.project_type %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目总金额</td>
+    <td> <%= @fund_management.total_cost %>&nbsp;元 </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 已报销金额 </td>
+    <td> <%= @fund_management.consumed_cost %>&nbsp;元  </td>
+  </tr>
+  <tr class="index_table_second_specs">资费明细</tr>
+  <% @fund_management.fund_items.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td> 高水平会议:<%= item.conference %>&nbsp;元 </td>
+        <td> 高水平论文:<%= item.paper %>&nbsp;元 </td>
+        <td> 查询文献:<%= item.search_paper %>&nbsp;元 </td>
+        <td> 其他:<%= item.other %>&nbsp;元 </td>
+      </tr>
+  <% end %>
+  <a href="#" onclick="addFile()" id="link">添加资费明细</a>
+</table>
+

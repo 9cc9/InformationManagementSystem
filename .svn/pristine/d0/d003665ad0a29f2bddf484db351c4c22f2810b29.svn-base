@@ -1,0 +1,196 @@
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// the compiled file.
+//
+// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
+// GO AFTER THE REQUIRES BELOW.
+//
+
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+//= require_tree .
+
+
+function query() {
+//    var value=$('input:radio[name="resourceType"]:checked').val();
+    var hid_file = document.getElementById('hid_file');
+    hid_file.style.display = "none";
+    var hid_database = document.getElementById('hid_database');
+    var hid_table = document.getElementById('hid_table');
+    hid_database.style.display = "block";
+    hid_table.style.display = "block";
+}
+
+function query_f() {
+
+    var hid_database = document.getElementById('hid_database');
+    var hid_table = document.getElementById('hid_table');
+    hid_database.style.display = "none";
+    hid_table.style.display = "none";
+    var hid_file = document.getElementById('hid_file');
+    hid_file.style.display = "block";
+}
+
+//function file_click(next) {
+//    if(next != null)
+//        document.getElementById(next).style.display = "";
+//}
+var fileIndex = 0; // 添加文件个数
+function addFundItem() {
+    var spanId = "add_fund_form"; // 添加的金额条目
+    var fileId = "fund_item_div_" + (fileIndex++);
+    addInputFile(spanId, fileId);
+}
+
+// 实时增加表单
+function addInputFile(spanId, fileId) {
+    var span = document.getElementById(spanId);
+    if (span != null) {
+        var divObj = document.createElement("div"), fileObj, delObj;   // 添加div
+        divObj.id = fileId;
+        var fund_item_attribute_names = ['conference', 'paper', 'search_paper', 'other'];
+        var fund_item_attributes = new Array(fund_item_attribute_names.length);
+        // IE
+        if ((navigator.userAgent.indexOf("MSIE") != -1)) {
+            for (var i = 0; i < fund_item_attributes.length; i++) {
+                fund_item_attributes[i] = document.createElement("<input id='fund_item_" + fileIndex + "_" + fund_item_attribute_names[i] +
+                    " name='fund_item[" + fileIndex + "][" + fund_item_attribute_names[i] + "]' type='text'>");
+            }
+            delObj = document.createElement("<input type=button onclick=delInputFile('" + spanId + "','" + fileId + "') />");
+        }
+        else {
+            for (var i = 0; i < fund_item_attributes.length; i++) {
+                fund_item_attributes[i] = document.createElement("input");
+                fund_item_attributes[i].type = "text";
+                fund_item_attributes[i].id = "fund_item_" + fileIndex + "_" + fund_item_attribute_names[i];
+                fund_item_attributes[i].name = "fund_item[" + fileIndex + "][" + fund_item_attribute_names[i] + "]";
+            }
+            delObj = document.createElement("input");
+            delObj.type = "button";
+            delObj.setAttribute("onclick", "delInputFile('" + spanId + "','" + fileId + "')", 0);
+        }
+        var fund_item_titles = ['会议', '元  论文', '元 查询文献', '元  其他'];
+        for (var i = 0; i < fund_item_titles.length; i++) {
+            divObj.appendChild(document.createTextNode(fund_item_titles[i]));
+            divObj.appendChild(fund_item_attributes[i]);
+        }
+        divObj.appendChild(document.createTextNode("元  "));
+        delObj.value = "删除";
+        divObj.appendChild(delObj);
+        span.appendChild(divObj);
+    }
+}
+
+function delInputFile(spanId, fileId) {
+    var span = document.getElementById(spanId);
+    var divObj = document.getElementById(fileId);
+    if (span != null && divObj != null) {
+        span.removeChild(divObj);
+    }
+}
+
+function queryTable() {
+    var text = $('#sel').find("option:selected").text();
+    var param = $('meta[name=csrf-token]').attr('content');
+    //    alert(text);
+    $.post('load_database', {
+        databasename:text,
+        authenticity_token:param
+    }, function (data) {
+        $("#select_id").empty();
+        $("#select_id").append("<option value='select' selected='selected'>--请选择--</option>");
+        if (data != null) {
+            for (var i = 0; i < data.length; i++) {
+                var text = data[i];
+                var value = data[i];
+                var option = "<option value='" + value + "'>" + text + "</option>";
+                $("#select_id").append(option);
+            }
+        }
+        if (data == null) {
+            $("#select_id").empty();
+            $("#select_id").append("<option value='select' selected='selected'>--请选择--</option>");
+        }
+    }, 'json');
+}
+
+function change() {
+    var div1 = $('#highLevelSearch');
+    var div2 = $('#fuzzy_matching_words');
+    if (div1.is(":hidden")) {
+        div2.val('');
+        div2.attr("disabled", true);
+        div1.show();
+    } else {
+        div2.attr("disabled", false);
+        div1.hide();
+    }
+}
+
+//表单排序方法
+(function ($) {
+    //插件
+    $.extend($, {
+        //命名空间
+        sortTable:{
+            sort:function (tableId, Idx) {
+                var table = document.getElementById(tableId);
+                var tbody = table.tBodies[0];
+                var tr = tbody.rows;
+
+                var trValue = new Array();
+                for (var i = 0; i < tr.length; i++) {
+                    trValue[i] = tr[i];  //将表格中各行的信息存储在新建的数组中
+                }
+
+                if (tbody.sortCol == Idx) {
+                    trValue.reverse(); //如果该列已经进行排序过了，则直接对其反序排列
+                } else {
+                    //trValue.sort(compareTrs(Idx));  //进行排序
+                    trValue.sort(function (tr1, tr2) {
+                        var value1 = tr1.cells[Idx].innerHTML;
+                        var value2 = tr2.cells[Idx].innerHTML;
+                        return value1.localeCompare(value2);
+                    });
+                }
+
+                var fragment = document.createDocumentFragment();  //新建一个代码片段，用于保存排序后的结果
+                for (var i = 0; i < trValue.length; i++) {
+                    fragment.appendChild(trValue[i]);
+                }
+
+                tbody.appendChild(fragment); //将排序的结果替换掉之前的值
+                tbody.sortCol = Idx;
+            }
+        }
+    });
+})(jQuery);
+function back() {
+    alert("11111")
+    history.go(-1)
+}
+
+
+function judge_password() {
+    var a = document.getElementById("password").value;
+    var b = document.getElementById("passwords").value;
+    if (a == b && a != '') {
+        return true;
+    } else {
+        alert("前后密码不一致，请重新输入！");
+        return false;
+    }
+}
+//
+//$(function() {
+//    $( "#datepicker" ).datepicker({ altFormat: "dd-mm-yy" });
+//});
+
+
+

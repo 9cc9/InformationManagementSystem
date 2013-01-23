@@ -1,0 +1,4 @@
+class Project < ActiveRecord::Base
+  attr_accessible :current_achievement, :ended_at, :paper_title,
+                  :project_type, :stage, :started_at, :status, :student_id
+end

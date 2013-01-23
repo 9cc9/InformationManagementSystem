@@ -1,0 +1,24 @@
+#####################################
+# 项目流程处理类
+#####################################
+
+class ProjectProcessController < ApplicationController
+  before_filter :authorize
+
+
+  def show
+     @project = Project.find(params[:id])
+  end
+
+  # 待审核的项目列表
+  def pending_review_projects_list
+  end
+
+  # 已经立项的项目列表
+  def established_projects_list
+  end
+
+  # 待答辩的项目列表
+  def pending_defense_projects_list
+  end
+end

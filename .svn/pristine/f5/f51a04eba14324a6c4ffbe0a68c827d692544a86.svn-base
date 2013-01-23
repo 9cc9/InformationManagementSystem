@@ -1,0 +1,38 @@
+class Student < ActiveRecord::Base
+  attr_accessible :academy, :doctor_type, :email, :graduation_time,
+                  :is_graduated, :major, :name, :phone_number, :school_number, :teacher_name
+
+  # 学术成果
+  has_many :achievement_items, :foreign_key => "student_id"  # 关联achievement_items
+  has_many :achievement_periodical_papers, :foreign_key => "student_id"  # 关联periodical_papers
+  has_many :achievement_conference_papers, :foreign_key => "student_id"  # 关联conference_papers
+  has_many :achievement_patents, :foreign_key => "student_id"  # 关联achievement_patents
+  has_many :achievement_academic_exchanges, :foreign_key => "student_id"  # 关联achievement_academic_exchanges
+  has_many :achievement_academic_exchange_reports, :foreign_key => "student_id"  # 关联achievement_academic_exchange_reports
+
+  # 其他信息
+  has_many :other_information_items, :foreign_key => "student_id"  # 关联other_information_items
+  has_many :other_studies, :foreign_key => "student_id"  # 关联other_studies
+  has_one :other_employment, :foreign_key => "student_id"  # 关联other_employment
+
+
+  has_many :projects, :foreign_key => "student_id"
+
+  # 根据参数列表创建多个学生成果条目
+  def create_achievement_items_with_params(items)
+    create_items_with_params(AchievementItem, items)
+  end
+
+  def create_other_information_items_with_params(items)
+    create_items_with_params(OtherInformationItem, items)
+  end
+
+  # 根据class类型创建对应items
+  def create_items_with_params(clazz, params)
+    (params || []).each do |item|
+      information_item = clazz.new(item[1])
+      information_item.student_id = self.id
+      information_item.save
+    end
+  end
+end

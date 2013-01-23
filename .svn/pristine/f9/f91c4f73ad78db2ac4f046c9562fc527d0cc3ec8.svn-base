@@ -1,0 +1,3 @@
+class FundManagement < ActiveRecord::Base
+  attr_accessible :consumed_cost, :project_id, :total_cost
+end

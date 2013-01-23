@@ -1,0 +1,17 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  学生管理 >  新建学生信息</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<%= render 'form' %>
+
+<%= link_to '返回', students_path %>

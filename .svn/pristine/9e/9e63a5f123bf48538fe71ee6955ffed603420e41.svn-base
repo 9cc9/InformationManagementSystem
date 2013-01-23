@@ -1,0 +1,16 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span>  用户管理 >  创建用户</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<%= render 'form' %>
+

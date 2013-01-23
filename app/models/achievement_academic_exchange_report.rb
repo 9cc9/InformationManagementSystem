@@ -1,0 +1,14 @@
+#####################################
+# ⑤学术交流报告(Achievement Academic Exchange Report Model)：
+# 报告的时间、地点、题目
+#####################################
+
+class AchievementAcademicExchangeReport < AchievementItem
+  attr_accessible :academic_exchange_address,# 报告的地点（4.5类）
+                  :academic_exchange_publication_name, # 学术交流发表成果名称（4.5类）
+                  :academic_exchange_time   # 报告的时间（4.5类)
+
+  belongs_to :student,
+             :class_name => "Student",
+             :foreign_key => "student_id"
+end

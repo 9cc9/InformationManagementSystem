@@ -1,0 +1,63 @@
+.nui-layer {
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.666;
+    cursor: default;
+}
+.nui-simpleForm {
+    font-size: 14px;
+}
+.kF {
+    margin: 10px 20px;
+    color: #999;
+}
+
+.nui-simpleForm .nui-form-title {
+    line-height: 30px;
+    padding: 5px 52px 5px 0;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.nui-form-title, .nui-form-cont {
+    vertical-align: top;
+    zoom: 1;
+}
+.kF .nui-form-cont {
+    zoom: 1;
+    position: relative;
+}
+
+.fN {
+    margin-right: 8px;
+    width: 190px;
+    vertical-align: middle;
+}
+.nui-txt-s12 {
+    font-size: 12px!important;
+}
+.nui-select {
+    line-height: 28px;
+    padding: 0 24px 0 10px;
+    position: relative;
+    font-size: 12px;
+    border: 1px solid #BBB;
+    color: #555;
+    cursor: pointer;
+    zoom: 1;
+    outline: 0;
+}
+.nui-progress, .nui-normalTips, .nui-tag, .nui-addr-symbol, .nui-addr-email, .nui-addr-name, .nui-addr, .nui-inlineGap, .nui-select, .nui-chk, .nui-ipt, .nui-ico, .nui-btn, .nui-splitBtn-text, .nui-btn-text, .nui-fIBlock {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.nui-select-text {
+    text-align: left;
+    font-family: tahoma;
+}
+
+.nui-select-arr {
+    position: absolute;
+    right: 10px;
+    top: 0;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>研究生院学位科信息管理系统</title>
+  <link rel="icon" href="/assets/favicon.png" />
+  <%= stylesheet_link_tag "application", "common_style", "globe", "compress", "jquery-ui", "pagination", :media => "all" %>
+  <%= javascript_include_tag "application", 'jquery-1.8.3', 'jquery-ui' %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+<%#*顶部栏%>
+<div class="header">
+  <div id="page_logo"></div>
+  <div style="background:#2b579a;width: 100%;height: 30px;float: right">
+    <div class="header_div">
+      <div id="quit_system">
+        <%= link_to image_tag("/assets/quit.gif"), :controller => :sessions, :action => :destroy %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="left_main">
+  <ul id="navigation">
+    <li><a class="head">项目管理</a>
+      <ul>
+        <li><%= link_to "创建新项目", new_project_path %></li>
+        <li><%= link_to "待审核的项目", pending_review_projects_list_path %></li>
+        <li><%= link_to "已立项的项目", established_projects_list_path %></li>
+        <li><%= link_to "待答辩的项目", pending_defense_projects_list_path %></li>
+        <li><%= link_to "项目列表", projects_path %></li>
+      </ul>
+    </li>
+    <li><a class="head" id="process_manage">学生管理</a>
+      <ul>
+        <li><%= link_to "新建学生", new_student_path %></li>
+        <li><%= link_to "学生列表", students_path %></li>
+      </ul>
+    </li>
+    <li><a class="head">用户管理</a>
+      <ul>
+        <li><%= link_to "新建用户", new_user_path %></li>
+        <li><%= link_to "用户列表", users_path %></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div id="center">
+  <%= yield %>
+</div>
+<div class="foot_div">
+  <br/>
+  Copyright©2012 www.uestc.edu.cn<br/>
+  All Rights Reserved
+</div>
+</body>
+</html>
+

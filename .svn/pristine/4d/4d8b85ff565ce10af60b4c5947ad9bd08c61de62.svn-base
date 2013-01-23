@@ -1,0 +1,3 @@
+class FundItem < ActiveRecord::Base
+  attr_accessible :conference, :fund_management_id, :other, :paper, :total
+end

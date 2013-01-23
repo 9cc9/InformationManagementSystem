@@ -1,0 +1,30 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  项目管理 >  搜索结果</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<div style="width:1030px">
+  <%= form_tag process_search_path, :class => "search_form" do %>
+      学生姓名:<%= text_field_tag :student_name, nil, :size => 10, :placeholder => '请输入关键字' %>
+      立项时间:<%= datepicker_input "established", "at", :size => 10 %>
+      项目类型:<%= select_tag(:project_type, options_for_select(%w{- 电子科技大学优秀博士生出国培养 教育部学术新人奖 中央高校基本科研业务费 电子科技大学优博选培计划 电子科技大学优博培育基金 电子科技大学优秀博士生学术支持计划项目}, params[:project_type])) %>
+      所属学院:<%= select_tag(:academy_type, options_for_select(%w{- 通信抗干扰技术国家级重点实验室 通信与信息工程学院 电子工程学院 微电子与固体电子学院}, params[:academy_type])) %>
+
+      <input name="submit" type="submit" style="margin-left: 10px; margin-right: 10px;" value="搜索"/>
+  <% end %>
+</div>
+
+<table class="norm_table_have_border" cellspacing="1" style="width: 970px;table-layout:fixed">
+  <%= render 'projects_list' %>
+  </tbody>
+</table>
+<% content_for(:header) do %>
+    <%= stylesheet_link_tag "jquery-ui" %>
+<%end%>

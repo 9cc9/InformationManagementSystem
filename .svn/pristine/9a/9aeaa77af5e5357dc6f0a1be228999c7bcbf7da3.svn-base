@@ -1,0 +1,36 @@
+<thead>
+<tr class="index_table_second_specs" id="index_table_second_specs_thead">
+  <th width="5%" >姓名</th>
+  <th width="15%" >项目类别</th>
+  <th width="10%" >学号</th>
+  <th width="15%" >学院</th>
+  <th width="10%" >专业</th>
+  <th width="35%" >成果</th>
+  <th width="10%" >操作</th>
+</tr>
+</thead>
+<tbody>
+<% @students.each do |student| %>
+    <tr class="index_table_second_specs">
+      <td><%= link_to "#{student.name}", student %></td>
+      <td><%= student.projects.first.project_type if student.projects.first %></td>
+      <td><%= student.school_number %></td>
+      <td><%= student.academy %></td>
+      <td><%= student.major %></td>
+      <td>
+        <% student.achievement_periodical_papers.each do |item| %>
+            <%= item.periodical_name %>(影响因子:<%= item.sci_impact_factor %>/JCR:<%= item.jcr %>)-<%= item.paper_title %>
+            <br/>
+        <% end %>
+        <% student.achievement_conference_papers.each do |item| %>
+            <%= item.conference_name %>-<%= item.paper_title %>
+            <br/>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to '详情', student %>
+        <%= link_to '修改', edit_student_path(student) %>
+        <%= link_to '删除', student, :method => :delete, :data => {:confirm => '是否确认删除此用户?'} %>
+      </td>
+    </tr>
+<% end %>

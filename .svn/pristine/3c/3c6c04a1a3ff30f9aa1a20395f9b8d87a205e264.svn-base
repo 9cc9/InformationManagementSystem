@@ -1,0 +1,42 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  学生管理 >  学生列表</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1" style="width: 970px;table-layout:fixed">
+  <thead>
+  <tr class="index_table_second_specs" id="index_table_second_specs_thead">
+    <th> 姓名</th>
+    <th> 学号</th>
+    <th> 专业</th>
+    <th> 学院</th>
+    <th> 导师</th>
+    <th> 操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @students.each do |student| %>
+      <tr class="index_table_second_specs">
+        <td><%= student.name %></td>
+        <td><%= student.school_number %></td>
+        <td><%= student.major %></td>
+        <td><%= student.academy %></td>
+        <td><%= student.teacher_name %></td>
+        <td>
+          <%= link_to '详情', student %>
+          <%= link_to '修改', edit_student_path(student) %>
+          <%= link_to '删除', student, :method => :delete, :data => {:confirm => '是否确认删除此用户?'} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

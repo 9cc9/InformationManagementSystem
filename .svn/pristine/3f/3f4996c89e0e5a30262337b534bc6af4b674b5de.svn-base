@@ -1,0 +1,87 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  项目管理 >  资费管理</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1">
+  <tr class="index_table_second_specs">
+    <td> 项目名称</td>
+    <td> <%= @project.paper_title %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目类型</td>
+    <td> <%= @project.project_type %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 项目总金额</td>
+    <td> <%= @fund_management.total_cost %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 已报销金额</td>
+    <td> <%= @fund_management.consumed_cost %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 高水平会议</td>
+    <td> <%= @fund_management.conference_total %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 高水平论文</td>
+    <td> <%= @fund_management.paper_total %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 查询文献</td>
+    <td> <%= @fund_management.search_paper_total %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 其他</td>
+    <td> <%= @fund_management.other_total %>&nbsp;元</td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td colspan="2">资费明细</td>
+  </tr>
+  </table>
+<table class="norm_table_have_border" cellspacing="1">
+  <tr class="index_table_second_specs">
+    <td>高水平会议(元)</td>
+    <td>高水平论文(元)</td>
+    <td>查询文献(元)</td>
+    <td>其他(元)</td>
+    <td>总计(元)</td>
+    <td>报账时间</td>
+  </tr>
+  <% @fund_management.fund_items.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td><%= item.conference %></td>
+        <td><%= item.paper %></td>
+        <td><%= item.search_paper %></td>
+        <td><%= item.other %></td>
+        <td><%= item.total %></td>
+        <td><%= item.fund_created_at%></td>
+      </tr>
+  <% end %>
+  <tr class="index_table_second_specs">
+    <td colspan="6" id="fund_item_span" noWrap>
+      <%= form_tag add_fund_item_path(@project.id), :id => "add_fund_form" do %>
+      <%end%>
+    </td>
+  </tr>
+
+  <tr class="index_table_second_specs">
+    <td colspan="6">
+      <a href="#" onclick="addFundItem()" id="link">添加资费明细</a>
+      <a href="#" onclick="document.getElementById('add_fund_form').submit();">确认</a>
+    </td>
+  </tr>
+
+
+</table>
+

@@ -1,0 +1,27 @@
+<thead>
+<tr class="index_table_second_specs" id="index_table_second_specs_thead">
+  <td width="10%" onclick="$.sortTable.sort('index_table_second',1)">学生</td>
+  <td width="25%" onclick="$.sortTable.sort('index_table_second',2)">项目类型</td>
+  <td width="15%" onclick="$.sortTable.sort('index_table_second',3)">学院</td>
+  <td width="10%" onclick="$.sortTable.sort('index_table_second',4)">项目当前阶段</td>
+  <td width="10%" onclick="$.sortTable.sort('index_table_second',5)">剩余金额</td>
+  <td width="10%" onclick="$.sortTable.sort('index_table_second',6)">立项时间</td>
+  <td width="20%">操作</td>
+</tr>
+</thead>
+<tbody>
+<% @projects.each do |project| %>
+    <tr class="index_table_second_specs">
+      <td><%= link_to "#{project.student.name}", project.student %></td>
+      <td><%= project.project_type %></td>
+      <td><%= project.student.academy %></td>
+      <td><%= project.stage %></td>
+      <td><%= project.fund_management.residual_amount %></td>
+      <td><%= project.started_at %></td>
+      <td>
+        <%= link_to '详情', project %>
+        <%= link_to '修改', edit_project_path(project) %>
+        <%= link_to '删除', project, :method => :delete, :data => {:confirm => '是否确认删除此项目?'} %>
+      </td>
+    </tr>
+<% end %>

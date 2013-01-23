@@ -1,0 +1,246 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  学生管理 >  学生详细信息</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1">
+  <tr class="index_table_second_specs">
+    <td> 姓名</td>
+    <td> <%= @student.name %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 学号</td>
+    <td> <%= @student.school_number %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 专业</td>
+    <td> <%= @student.major %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 手机号码</td>
+    <td> <%= @student.phone_number %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 邮箱</td>
+    <td> <%= @student.email %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 博士类型</td>
+    <td> <%= @student.doctor_type %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 导师</td>
+    <td> <%= @student.teacher_name %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 学院</td>
+    <td> <%= @student.academy %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 毕业时间</td>
+    <td> <%= @student.graduation_time %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 是否毕业</td>
+    <td> <%= show_graduated_state %> </td>
+  </tr>
+  <% @student.projects.each do |project| %>
+      <tr class="index_table_second_specs">
+        <td> 项目</td>
+        <td> <%= link_to "#{project.paper_title}", project %> </td>
+      </tr>
+  <% end %>
+</table>
+
+<table class="norm_table_have_border" cellspacing="1">
+  <thead>
+  <tr class="index_table_second_specs" id="index_table_second_specs_thead">
+    <td width="10%" onclick="$.sortTable.sort('index_table_second',0)"></td>
+    <td width="35%" onclick="$.sortTable.sort('index_table_second',1)"></td>
+    <td width="40%"></td>
+    <td width="15%"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="index_table_second_specs">
+    <td colspan="4">学生成果</td>
+  </tr>
+  <% @student.achievement_periodical_papers.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td>期刊论文</td>
+        <td>
+          学术论文题目:<%= item.paper_title %>
+          <br/>
+          期刊名字:<%= item.periodical_name %>
+          <br/>
+          期刊类别:<%= item.periodical_type %>
+        </td>
+        <td>
+          发表期卷:<%= item.periodical_volume %>
+          <br/>
+          SCI期刊影响因子:<%= item.sci_impact_factor %>
+          <br/>
+          JCR分区：<%= item.jcr %>
+        </td>
+        <td><%= item.achieved_at %></td>
+      </tr>
+  <% end %>
+
+  <% @student.achievement_conference_papers.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td>会议论文</td>
+        <td>学术论文题目:<%= item.paper_title %></td>
+        <td>
+          会议名字:<%= item.conference_name %>
+          <br/>
+          发表期卷:<%= item.periodical_volume %>
+          <br/>
+        </td>
+        <td><%= item.achieved_at %></td>
+      </tr>
+  <% end %>
+
+  <% @student.achievement_patents.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td>专利</td>
+        <td>专利名称:<%= item.patent_name %></td>
+        <td>
+          专利号:<%= item.patent_id %>
+          <br/>
+          专利类型:<%= item.patent_type %>
+          <br/>
+        </td>
+        <td><%= item.achieved_at %></td>
+      </tr>
+  <% end %>
+
+  <% @student.achievement_academic_exchanges.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td>学术交流</td>
+        <td>
+          学术交流发表成果名称:<%= item.academic_exchange_publication_name %>
+          <br/>
+          学术交流名称:<%= item.academic_exchange_name %>
+        </td>
+        <td>
+          学术交流类型:<%= item.academic_exchange_type %>
+          <br/>
+          报告的地点:<%= item.academic_exchange_address %>
+          <br/>
+          报告的时间:<%= item.academic_exchange_time %>
+        </td>
+        <td><%= item.achieved_at %></td>
+      </tr>
+  <% end %>
+
+  <% @student.achievement_academic_exchange_reports.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td>学术交流报告</td>
+        <td>
+          学术交流发表成果名称:<%= item.academic_exchange_publication_name %>
+          <br/>
+          学术交流名称:<%= item.academic_exchange_name %>
+        </td>
+        <td>报告的时间:<%= item.academic_exchange_time %>
+        </td>
+        <td><%= item.achieved_at %></td>
+      </tr>
+  <% end %>
+
+  <% @student.other_studies.each do |item| %>
+      <tr class="index_table_second_specs">
+        <td>境外高校学习经历</td>
+        <td>
+          项目名称:<%= item.project_name %>
+          <br/>
+          开始时间:<%= item.started_at %>
+          <br/>
+          结束时间:<%= item.ended_at %>
+        </td>
+        <td>
+          国别（地区）:<%= item.country %>
+          <br/>
+          学校名称:<%= item.university %>
+          <br/>
+          学院名称:<%= item.academy %>
+        </td>
+        <td><%= item.achieved_at %></td>
+      </tr>
+  <% end %>
+
+  <% if @student.other_employment %>
+      <tr class="index_table_second_specs">
+        <td>就业单位</td>
+        <td>
+          就业单位名称:<%= @student.other_employment.company %>
+          <br/>
+          所在省市名称:<%= @student.other_employment.company_address %>
+        </td>
+        <td>
+          单位性质:<%= @student.other_employment.company_property %>
+          <br/>
+          岗位类别:<%= @student.other_employment.job_category %>
+        </td>
+        <td><%= @student.other_employment.achieved_at %></td>
+      </tr>
+  <% end %>
+
+  <tr class="index_table_second_specs">
+    <td colspan="4" id="fund_item_span" noWrap>
+      <%= form_tag add_achievement_item_path(@student.id), :id => "add_achievement_form" do %>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr class="index_table_second_specs">
+    <td colspan="4">
+      成果类型选择：<%= select_tag(:achievement_item_type, options_for_select(%w{期刊论文 会议论文 专利 学术交流 学术交流报告}, params[:achievement_item_type])) %>
+      <a href="#" onclick="addAchievementItem(document.getElementById('achievement_item_type').value);" id="link">添加学生成果</a>
+    </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td colspan="4">
+      <a href="#" onclick="document.getElementById('add_achievement_form').submit();">提交</a>
+    </td>
+  </tr>
+
+  <tr class="index_table_second_specs">
+    <td colspan="4" id="other_item_span" noWrap>
+      <%= form_tag add_other_information_item_path(@student.id), :id => "add_other_form" do %>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr class="index_table_second_specs">
+    <td colspan="4">
+      其他信息选择：<%= select_tag(:other_item_type, options_for_select(%w{境外高校学习经历 就业单位}, params[:other_item_type])) %>
+      <a href="#" onclick="addOtherItem(document.getElementById('other_item_type').value);" id="link">添加其他信息</a>
+    </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td colspan="4">
+      <a href="#" onclick="document.getElementById('add_other_form').submit();">提交</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+

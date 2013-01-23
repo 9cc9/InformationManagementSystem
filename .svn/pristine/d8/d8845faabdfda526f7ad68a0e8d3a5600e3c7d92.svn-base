@@ -1,0 +1,43 @@
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+Mysql2::Error: Table 'informationmanagementsystem_test.students' doesn't exist: SHOW FULL FIELDS FROM `students`
+  [1m[35m (0.0ms)[0m  ROLLBACK
+Connecting to database specified by database.yml
+  [1m[36m (226.0ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (224.0ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)
+  [1m[36m (1.0ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Migrating to AddSessionsTable (20130110033705)
+  [1m[35m (167.0ms)[0m  CREATE TABLE `sessions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `session_id` varchar(255) NOT NULL, `data` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (232.0ms)[0m  [1mCREATE INDEX `index_sessions_on_session_id` ON `sessions` (`session_id`)[0m
+  [1m[35m (203.0ms)[0m  CREATE INDEX `index_sessions_on_updated_at` ON `sessions` (`updated_at`)
+  [1m[36m (55.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130110033705')[0m
+Migrating to CreateUsers (20130110033815)
+  [1m[35m (113.0ms)[0m  CREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `account` varchar(255), `name` varchar(255), `hashed_password` varchar(255), `salt` varchar(255), `role_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (50.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130110033815')[0m
+Migrating to CreateStudents (20130110042341)
+  [1m[35m (110.0ms)[0m  CREATE TABLE `students` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `school_number` varchar(255), `major` varchar(255), `phone_number` varchar(255), `email` varchar(255), `doctor_type` varchar(255), `teacher_name` varchar(255), `academy` varchar(255), `graduation_time` datetime, `is_graduated` tinyint(1), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (22.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130110042341')[0m
+Migrating to CreateProjects (20130110060015)
+  [1m[35m (119.0ms)[0m  CREATE TABLE `projects` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `paper_title` varchar(255), `started_at` datetime, `ended_at` datetime, `stage` varchar(255), `status` varchar(255), `current_achievement` text, `student_id` int(11), `project_type` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (21.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130110060015')[0m
+Migrating to CreateFundManagements (20130110060615)
+  [1m[35m (110.0ms)[0m  CREATE TABLE `fund_managements` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `project_id` int(11), `total_cost` int(11), `consumed_cost` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (17.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130110060615')[0m
+Migrating to CreateFundItems (20130110061204)
+  [1m[35m (116.0ms)[0m  CREATE TABLE `fund_items` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `fund_management_id` int(11), `conference` int(11), `paper` int(11), `other` int(11), `total` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (21.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130110061204')[0m
+Migrating to CreateAchievementItems (20130110071848)
+  [1m[35m (233.0ms)[0m  CREATE TABLE `achievement_items` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `type` varchar(255), `student_id` int(11), `paper_title` varchar(255), `periodical_name` varchar(255), `periodical_volume` varchar(255), `periodical_type` varchar(255), `sci_impact_factor` varchar(255), `jcr` varchar(255), `conference_name` varchar(255), `patent_type` varchar(255), `patent_id` varchar(255), `patent_name` varchar(255), `academic_exchange_time` datetime, `academic_exchange_address` varchar(255), `academic_exchange_publication_name` varchar(255), `academic_exchange_name` varchar(255), `academic_exchange_type` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (41.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130110071848')[0m
+Migrating to CreateOtherInformationItems (20130110075329)
+  [1m[35m (132.0ms)[0m  CREATE TABLE `other_information_items` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `type` varchar(255), `student_id` int(11), `project_name` varchar(255), `started_at` datetime, `ended_at` datetime, `country` varchar(255), `university` varchar(255), `academy` varchar(255), `job_category` varchar(255), `company` varchar(255), `company_address` varchar(255), `company_property` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (53.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20130110075329')[0m
+  [1m[35m (0.0ms)[0m  SELECT `schema_migrations`.`version` FROM `schema_migrations` 
+Connecting to database specified by database.yml
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO `students` (`academy`, `created_at`, `doctor_type`, `email`, `graduation_time`, `is_graduated`, `major`, `name`, `phone_number`, `school_number`, `teacher_name`, `updated_at`) VALUES ('电子科大', '2013-01-11 02:19:28', '电子科大', '电子科大', '2013-01-11 02:19:28', 0, '电子科大', '电子科大', '电子科大', '201221010307', '电子科大', '2013-01-11 02:19:28')[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (65.0ms)[0m  [1mROLLBACK[0m

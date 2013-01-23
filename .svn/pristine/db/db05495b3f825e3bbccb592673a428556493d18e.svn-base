@@ -1,0 +1,41 @@
+<%= form_for @project do |f| %>
+    <div>
+      <table class="norm_table_have_border" cellspacing="1">
+        <tr class="index_table_second_specs">
+          <td>拟定论文题目</td>
+          <td class="second_specs_td"><%= f.text_field :paper_title %></td>
+        </tr>
+        <tr class="index_table_second_specs">
+          <td>项目类型</td>
+          <td class="second_specs_td">
+            <%= f.select(:project_type, options_for_select(%w{电子科技大学优秀博士生出国培养 教育部学术新人奖 中央高校基本科研业务费 电子科技大学优博选培计划 电子科技大学优博培育基金 电子科技大学优秀博士生学术支持计划项目}, params[:role_id]), {}, {:style => "width:250px;"}) %>
+          </td>
+        </tr>
+        <tr class="index_table_second_specs">
+          <td>项目开始时间</td>
+          <td class="second_specs_td"><%= f.datetime_select :started_at %></td>
+        </tr>
+        <tr class="index_table_second_specs">
+          <td>项目预计结束时间</td>
+          <td class="second_specs_td"><%= f.datetime_select :ended_at %></td>
+        </tr>
+        <tr class="index_table_second_specs">
+          <td>关联学生ID</td>
+          <td class="second_specs_td"><%= f.text_field :student_id %></td>
+        </tr>
+        <%= fields_for @fund_management do |fund| %>
+            <tr class="index_table_second_specs">
+              <td>项目总金额</td>
+              <td class="second_specs_td"><%= fund.text_field :total_cost %></td>
+            </tr>
+        <% end %>
+
+        <tr>
+          <th colspan="2">
+            <input name="submit" type="submit" value="创建"/>
+          </th>
+        </tr>
+      </table>
+<% end %>
+</div>
+

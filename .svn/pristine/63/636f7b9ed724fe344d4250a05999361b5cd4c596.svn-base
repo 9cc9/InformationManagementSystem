@@ -1,0 +1,27 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  学生管理 >  搜索结果</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<div style="margin-left: 40px;">
+  <%= form_tag process_students_search_path, :class => "search_form" do %>
+      项目类型:<%= select_tag(:project_type, options_for_select(%w{- 电子科技大学优秀博士生出国培养 教育部学术新人奖 中央高校基本科研业务费 电子科技大学优博选培计划 电子科技大学优博培育基金 电子科技大学优秀博士生学术支持计划项目}, params[:project_type])) %>
+      学号:<%= text_field_tag :school_number, nil, :size => 10, :placeholder => '请输入学号' %>
+      学院:<%= select_tag(:academy, options_for_select(%w{- 通信抗干扰技术国家级重点实验室 通信与信息工程学院 电子工程学院 微电子与固体电子学院}, params[:academy])) %>
+      专业:<%= text_field_tag :major, nil, :size => 10, :placeholder => '请输入关键字' %>
+      <input name="submit" type="submit" style="margin-left: 10px; margin-right: 10px;" value="搜索"/>
+      <a href="#" onclick="PrintPart('selected_printer');">打印</a>
+  <% end %>
+</div>
+
+<table class="norm_table_have_border" id="selected_printer" cellspacing="1" style="width: 970px;table-layout:fixed">
+  <%= render 'students_list' %>
+  </tbody>
+</table>

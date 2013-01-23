@@ -1,0 +1,63 @@
+<html>
+  <body>
+  <div class="Head">
+    <div style="background:#2b579a;width: 100%;height: 30px;float: right;font-size:22;color:white">
+      <p>电子科技大学博士生信息管理系统 </p>
+    </div>
+  </div>
+  <div>
+    <div class="MainLeft">
+    </div>
+  </div>
+    <div class="MainRight">
+    <div id="LoginForm">
+    <%= form_tag login_path do -%>
+        <div class="title">
+          <div class="caption">
+             用户登录
+          </div>
+        </div>
+        <table class="loginTable">
+          <tbody>
+          <tr>
+            <th>用 户 名:</th>
+            <td>
+              <%= text_field_tag 'name', nil, :style => "width:150px" %>
+            </td>
+            <td class="error"/>
+          </tr>
+          <tr>
+            <th>密　　码:</th>
+            <td>
+              <%= password_field_tag 'password', nil, :style => "width:150px" -%>
+            </td>
+            <td class="error"/>
+          </tr>
+          <tr>
+            <th></th>
+              <td>
+                <button name="action:login" type="submit" class="Button"> 登　录 </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/forgot_password_form">忘记密码了</a>
+              </td>
+          </tr>
+          </tbody>
+        </table>
+        <br/>
+        <br/>
+
+        <br/>
+        <br/>
+    <% end -%>
+    </div>
+  </div>
+</div>
+  <div class="copyright">
+    <a href="http://www.uestc.edu.cn" target="_blank">电子科技大学</a>
+    版权所有 @ 2013
+    <br/>
+    地址：中国四川成都高新西区2006号 邮编：611731
+  </div>
+
+  </body>
+</html>

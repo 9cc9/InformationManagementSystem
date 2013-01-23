@@ -1,0 +1,6 @@
+# encoding: utf-8
+module ApplicationHelper
+  def will_paginate_options
+    {:previous_label => "« 上页", :next_label => "下页 »", :container => false}
+  end
+end

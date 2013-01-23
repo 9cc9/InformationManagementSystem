@@ -1,0 +1,49 @@
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+ $(function(){
+      $("#cancel").hide()
+      $("#preview").show().click(previewClick);
+      $("#link").show();
+      $('#sumit').hide();
+      $('#compile').hide().click(cancelClick);
+    });
+ function previewClick(){
+
+      $("#preview").hide();
+      $("#cancel").show();
+      $("#sumit").show();
+      $('#compile').show();
+      $("#link").hide();
+
+
+      $("input:file").hide().each(function(){
+        $(this).after("<span id='show'>" + this.value + "</span>");
+      });
+      $("input:text").hide().each(function () {
+        $(this).after("<span id='show'>" + this.value + "</span>");
+      });
+      $("select").hide().each(function () {
+        $(this).after("<span id='show'>" + this[this.selectedIndex].text + "</span>");
+      })
+     $("#metadatum_abstract").hide().each(function () {
+          $(this).after("<span id='show'>" + this.value + "</span>");
+        });
+        $("#contact_point_address").hide().each(function () {
+          $(this).after("<span id='show'>" + this.value + "</span>");
+        });
+        $("#metadata_contact_address").hide().each(function () {
+          $(this).after("<span id='show'>" + this.value + "</span>");
+        });};
+    function cancelClick(){
+      $("#preview").show();
+      $("#cancel").hide();
+      $('#compile').hide();
+      $("#link").show();
+      $("#sumit").hide();
+      $("span#show").prev().show().end().remove();
+      $("input:text").show();
+      $("input:file").show();
+    }
+

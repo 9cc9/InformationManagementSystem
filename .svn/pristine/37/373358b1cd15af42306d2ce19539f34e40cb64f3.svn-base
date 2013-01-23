@@ -1,0 +1,28 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  用户管理 >  查看用户</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1">
+  <tr class="index_table_second_specs">
+    <td> 用&nbsp;户&nbsp;名 </td>
+    <td> <%= @user.account %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 真实姓名</td>
+    <td> <%= @user.name %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 用户角色 </td>
+    <td> <%= @user.role_id %> </td>
+</table>
+

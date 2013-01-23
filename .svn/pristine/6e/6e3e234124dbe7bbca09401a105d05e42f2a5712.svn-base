@@ -1,0 +1,7 @@
+class Student < ActiveRecord::Base
+  attr_accessible :academy, :doctor_type, :email, :graduation_time,
+                  :is_graduated, :major, :name, :phone_number, :school_number, :teacher_name
+
+  has_many :achievement_items, :foreign_key => "student_id"
+  has_many :periodical_papers, :foreign_key => "student_id"
+end

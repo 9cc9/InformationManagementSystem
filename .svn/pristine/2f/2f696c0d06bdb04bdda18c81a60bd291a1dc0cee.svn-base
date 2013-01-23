@@ -1,0 +1,14 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  用户管理 >  修改用户</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+<%= render 'form' %>

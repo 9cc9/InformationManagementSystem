@@ -1,0 +1,130 @@
+# encoding: utf-8
+#####################################
+# 项目资源处理类
+#####################################
+class ProjectsController < ApplicationController
+  before_filter :authorize
+
+  # 项目列表
+  def index
+    @projects = Project.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json => @projects }
+    end
+  end
+
+  # 根据id显示对应项目详情
+  def show
+    @project = Project.find(params[:id])
+    @student = @project.student
+    @fund_management = @project.fund_management
+    @file_uploader_arrivals = @project.file_uploader_arrivals
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render :json => @project }
+    end
+  end
+
+  # 创建新项目界面
+  def new
+    @project = Project.new
+    @fund_management = FundManagement.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render :json => @project }
+    end
+  end
+
+  # 根据用户输入信息创建新项目
+  def create
+    @project = Project.new(params[:project])
+    respond_to do |format|
+      if @project.save
+        @fund_management = @project.create_fund_management(params[:fund_management])
+        format.html { redirect_to @project, :notice => 'Project was successfully created.' }
+        format.json { render :json => @project, :status => :created, :location => @project }
+      else
+        format.html { render :action => "new" }
+        format.json { render :json => @project.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # 修改项目界面
+  def edit
+    @project = Project.find(params[:id])
+    @fund_management = @project.fund_management
+  end
+
+  # 根据用户输入信息更新界面
+  def update
+    @project = Project.find(params[:id])
+
+    respond_to do |format|
+      if @project.update_attributes(params[:project])
+        @project.fund_management.update_attributes(params[:fund_management])
+        format.html { redirect_to @project, :notice => 'Project was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => @project.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # 删除项目
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+
+    respond_to do |format|
+      format.html { redirect_to projects_url }
+      format.json { head :no_content }
+    end
+  end
+
+  # 搜索项目
+  def process_search
+    checked_params, time_enable = check_params_nil(params) # time_enable: 是否加入时间搜索 ,false 不加入
+    @projects = Project.all(:conditions => generate_sql_condition(checked_params, time_enable))
+    @projects.select!{|project| project.student.academy =~ /.*#{checked_params["academy_type"]}.*/ and
+        project.student.name =~ /.*#{checked_params["student_name"]}.*/}
+    render :action => :index
+  end
+
+  # 生成sql的条件查询语句
+  def generate_sql_condition(checked_params, time_enable)
+    if time_enable
+      ["YEAR(started_at) = ? and MONTH(started_at) = ? and DAY(started_at) = ? and project_type LIKE ? ",
+       checked_params["established_at"].year,
+       checked_params["established_at"].month,
+       checked_params["established_at"].day,
+       checked_params["project_type"]]
+    else
+      ["project_type LIKE ?",
+       checked_params["project_type"]]
+    end
+  end
+
+  # 检查参数是否为空
+  def check_params_nil(params)
+    checked_params, time_enable = {}, true
+    (params || []).each do |key, value|
+      case key
+        when "project_type"
+          checked_params["project_type"] = (value == "-") ? "%%" : value
+        when "academy_type"
+          checked_params["academy_type"] = (value == "-") ? "" : value
+        when /^established/
+          checked_params["established_at"] = (value["at"].empty?) ? (time_enable = false) : DateTime.parse(value["at"])
+        when "student_name"
+          checked_params["student_name"] = (value.empty?) ? "" : value
+      end
+    end
+    return checked_params, time_enable
+  end
+end

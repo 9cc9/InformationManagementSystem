@@ -1,0 +1,33 @@
+# encoding: utf-8
+require 'spec_helper'
+
+describe Student do
+  let(:params_student) { {:academy => "电子科大", :doctor_type => "电子科大", :email => "电子科大",
+                          :graduation_time => Time.now,
+                          :is_graduated => false, :major => "电子科大", :name => "电子科大",
+                          :phone_number => "电子科大", :school_number => "201221010307", :teacher_name => "电子科大"} }
+  let(:params_paper) { {:academic_exchange_address => "电子科大", # 报告的地点（4.5类）
+                        :academic_exchange_name => "电子科大", # 学术交流名称（4）
+                        :academic_exchange_publication_name => "电子科大", # 学术交流发表成果名称（4.5类）
+                        :academic_exchange_time => Time.now, # 报告的时间（4.5类）
+                        :academic_exchange_type => "电子科大", # 学术交流类型（4）})
+  } }
+
+  # 测试单表继承的表现形式是否如预期
+  describe "test for single_table inheritance" do
+    it "create a student with multiple achievement items and subclass periodical_papers" do
+      student = Student.create(params_student)
+
+      params_paper[:student_id] = student.id
+      AchievementAcademicExchange.create(params_paper)
+      params_paper[:academic_exchange_type] = "电子科大1"
+      AchievementAcademicExchange.create(params_paper)
+      AchievementItem.create({
+                                 :student_id => student.id
+                             })
+      student.achievement_items.count.should == 3
+      student.achievement_academic_exchanges.count.should == 2
+    end
+  end
+
+end

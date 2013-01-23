@@ -1,0 +1,40 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  用户管理 >  用户列表</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+<table class="norm_table_have_border" cellspacing="1" style="width: 970px;table-layout:fixed">
+  <thead>
+  <tr class="index_table_second_specs" id="index_table_second_specs_thead">
+    <td width="20%" onclick="$.sortTable.sort('index_table_second',0)">用户名</td>
+    <td width="30%" onclick="$.sortTable.sort('index_table_second',1)">真实姓名</td>
+    <td width="30%" onclick="$.sortTable.sort('index_table_second',2)">角色</td>
+    <td width="20%">操作</td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+      <tr class="index_table_second_specs">
+        <td><%= user.account %></td>
+        <td><%= user.name %></td>
+        <td><%= user.role_id %></td>
+        <td>
+          <%= link_to '详情', user %>
+          <%= link_to '修改', edit_user_path(user) %>
+          <%= link_to '删除', user, :method => :delete, :data => {:confirm => '是否确认删除此用户?'} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br/>
+

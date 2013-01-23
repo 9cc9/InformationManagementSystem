@@ -1,0 +1,23 @@
+//$(document).ready(function(){
+//    var url = "http://localhost:3000/directory";
+//    $.getJSON(url,initTable);
+//    $("#prev").click(function(){
+//        var url ="http://localhost:3000/directory?op=prev";
+//        $.getJSON(url,initTable);
+//    });
+//      $("#next").click(function(){
+//        var url ="http://localhost:3000/directory?op=next";
+//        $.getJSON(url,initTable);
+//    });
+//});
+//function(data){
+//    $("#filename>table>tbody").html("");
+//
+//    $.each(data,
+//function(index,p){
+//    var html ="<tr>"
+//})
+//
+//}
+
+

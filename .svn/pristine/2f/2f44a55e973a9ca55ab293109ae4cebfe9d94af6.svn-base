@@ -1,0 +1,60 @@
+# encoding: utf-8
+#####################################
+# 项目流程处理类
+#####################################
+
+class ProjectProcessController < ApplicationController
+  before_filter :authorize
+
+
+  # 待审核的项目列表
+  def pending_review_projects_list
+    @projects = Project.all(:conditions => {:stage =>"申请阶段", :status => "待审核"})
+  end
+
+  # 已经立项的项目列表
+  def established_projects_list
+    @projects = Project.all(:conditions => {:stage =>"立项阶段", :status => "待审核"})
+  end
+
+  # 待答辩的项目列表
+  def pending_defense_projects_list
+    @projects = Project.all(:conditions => {:stage =>"答辩阶段"})
+  end
+
+  # 所有未通过审核的项目列表
+  def not_pass_projects_list
+
+  end
+
+  # 通过审核
+  def pass_project
+    Project.find(params[:id]).update_status
+    redirect_to :back
+  end
+
+  # 结题
+  def complete_project
+    Project.find(params[:id]).complete_status
+    redirect_to :back
+  end
+
+  # 资费管理页面
+  def fund_management_show
+    @project = Project.find(params[:id])
+    @fund_management = @project.fund_management
+  end
+
+  # 增加资费条目
+  def add_fund_item
+    @project = Project.find(params[:id])
+    @fund_management = @project.fund_management
+    params[:fund_item].each_with_index do |item, index|
+      fund_item = FundItem.new(item[1])
+      fund_item.fund_management_id = @fund_management.id
+      fund_item.save
+    end
+    redirect_to fund_management_show_path(params[:id])
+  end
+
+end

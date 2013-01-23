@@ -1,0 +1,54 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  学生管理 >  学生列表</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<div style="margin-left: 40px;">
+  <%= form_tag process_students_search_path, :class => "search_form" do %>
+      项目类型:<%= select_tag(:project_type, options_for_select(%w{- 电子科技大学优秀博士生出国培养 教育部学术新人奖 中央高校基本科研业务费 电子科技大学优博选培计划 电子科技大学优博培育基金 电子科技大学优秀博士生学术支持计划项目}, params[:project_type])) %>
+      学号:<%= text_field_tag :school_number, nil, :size => 10, :placeholder => '请输入学号' %>
+      学院:<%= select_tag(:academy, options_for_select(%w{- 通信抗干扰技术国家级重点实验室 通信与信息工程学院 电子工程学院 微电子与固体电子学院}, params[:academy])) %>
+      专业:<%= text_field_tag :major, nil, :size => 10, :placeholder => '请输入关键字'%>
+      <input name="submit" type="submit" style="margin-left: 10px; margin-right: 10px;" value="搜索"/>
+  <% end %>
+</div>
+
+<table class="norm_table_have_border" cellspacing="1" style="width: 970px;table-layout:fixed">
+  <thead>
+  <tr class="index_table_second_specs" id="index_table_second_specs_thead">
+    <th>姓名</th>
+    <th>项目类别</th>
+    <th>学号</th>
+    <th>学院</th>
+    <th>专业</th>
+    <th>成果</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @students.each do |student| %>
+      <tr class="index_table_second_specs">
+        <td><%= link_to "#{student.name}", student %></td>
+        <td><%= student.projects.first.project_type if student.projects.first%></td>
+        <td><%= student.school_number %></td>
+        <td><%= student.academy %></td>
+        <td><%= student.major %></td>
+        <td>
+
+        </td>
+        <td>
+          <%= link_to '详情', student %>
+          <%= link_to '修改', edit_student_path(student) %>
+          <%= link_to '删除', student, :method => :delete, :data => {:confirm => '是否确认删除此用户?'} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

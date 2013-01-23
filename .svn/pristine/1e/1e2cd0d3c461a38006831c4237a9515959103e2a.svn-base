@@ -1,0 +1,3 @@
+class OtherInformationItem < ActiveRecord::Base
+  attr_accessible :academy, :company, :company_address, :company_property, :country, :ended_at, :job_category, :project_name, :started_at, :student_id, :type, :university
+end

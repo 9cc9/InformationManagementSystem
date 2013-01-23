@@ -1,0 +1,23 @@
+
+#####################################
+# 学术成果基类
+# ①期刊论文（Achievement Periodical Paper Model)：
+# 学术论文题目、期刊名字、发表期卷、期刊类别（SCI、SSCI、EI等）、SCI期刊影响因子、JCR分区
+# ②会议论文(Achievement Conference Paper Model)：
+# 学术论文题目、会议名字、发表期卷
+# ③专利(Achievement Patent Model)：
+# 专利类型、专利号、专利名称
+# ④学术交流(Achievement Academic Exchange Model)：
+# 参加学术交流的时间、地点、参加学术交流的会议名称及成果名称、参会形式（大会报告、分会报告、论文张贴）
+# ⑤学术交流报告(Achievement Academic Exchange Report Model)：
+# 报告的时间、地点、题目
+#####################################
+class AchievementItem < ActiveRecord::Base
+
+  attr_accessible :student_id,  # 关联学生id，与唯一学生id关联
+                  :type #关联子类
+
+  belongs_to :student,
+             :class_name => "Student",
+             :foreign_key => "student_id"
+end

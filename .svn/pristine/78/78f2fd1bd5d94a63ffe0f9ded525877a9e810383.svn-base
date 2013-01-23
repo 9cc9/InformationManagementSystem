@@ -1,0 +1,57 @@
+<%= form_for(@student) do |f| %>
+  <% if @student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+      <% @student.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :school_number %><br />
+    <%= f.text_field :school_number %>
+  </div>
+  <div class="field">
+    <%= f.label :major %><br />
+    <%= f.text_field :major %>
+  </div>
+  <div class="field">
+    <%= f.label :phone_number %><br />
+    <%= f.text_field :phone_number %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :doctor_type %><br />
+    <%= f.text_field :doctor_type %>
+  </div>
+  <div class="field">
+    <%= f.label :teacher_name %><br />
+    <%= f.text_field :teacher_name %>
+  </div>
+  <div class="field">
+    <%= f.label :academy %><br />
+    <%= f.text_field :academy %>
+  </div>
+  <div class="field">
+    <%= f.label :graduation_time %><br />
+    <%= f.datetime_select :graduation_time %>
+  </div>
+  <div class="field">
+    <%= f.label :is_graduated %><br />
+    <%= f.check_box :is_graduated %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

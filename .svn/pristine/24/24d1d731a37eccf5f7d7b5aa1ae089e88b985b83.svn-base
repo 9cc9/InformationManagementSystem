@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png")%></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  学生管理 >  学生详细信息</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1">
+  <tr class="index_table_second_specs">
+    <td> 姓名 </td>
+    <td> <%= @student.name %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 学号 </td>
+    <td> <%= @student.school_number %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 专业 </td>
+    <td> <%= @student.major %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 手机号码 </td>
+    <td> <%= @student.phone_number %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 邮箱 </td>
+    <td> <%= @student.email %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 博士类型 </td>
+    <td> <%= @student.doctor_type %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 导师 </td>
+    <td> <%= @student.teacher_name %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 学院 </td>
+    <td> <%= @student.academy %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 毕业时间 </td>
+    <td> <%= @student.graduation_time %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td> 是否毕业 </td>
+    <td> <%= @student.is_graduated %> </td>
+  </tr>
+  <tr class="index_table_second_specs">
+    <td>
+      <%= link_to '编辑', edit_student_path(@student) %>
+    </td>
+    <td>
+      <%= link_to '返回', students_path %>
+    </td>
+</table>
+
+
+
+
+
+
+
+
+

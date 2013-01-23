@@ -1,0 +1,120 @@
+/**
+ * Created with JetBrains RubyMine.
+ * User: CYX
+ * Date: 13-1-14
+ * Time: 下午1:50
+ * To change this template use File | Settings | File Templates.
+ */
+
+
+var itemIndex = 0; // 添加文件个数
+function addAchievementItem(type)  // type: achievement_item type
+{
+    var spanId = "add_achievement_form"; // 添加的金额条目
+    var itemId = "achievement_item_div_" + (itemIndex++);
+    switch (type) {
+        case "期刊论文":
+            addEachAchievementItem(spanId, itemId, itemIndex - 1, "AchievementPeriodicalPaper",
+                ['paper_title', 'periodical_name', 'periodical_type', 'periodical_volume', "sci_impact_factor", "jcr"],
+                ['学术论文题目', '  期刊名字', '  期刊类别', '  发表期卷', '  SCI期刊影响因子', '  JCR分区']);
+            break;
+        case "会议论文":
+            addEachAchievementItem(spanId, itemId, itemIndex - 1,"AchievementConferencePaper",
+                ['paper_title', 'conference_name','periodical_volume'],
+                ['学术论文题目', '  会议名字', '  发表期卷']);
+            break;
+        case "专利":
+            addEachAchievementItem(spanId, itemId, itemIndex - 1,"AchievementPatent",
+                ['patent_name', 'patent_type', 'patent_id'],
+                ['专利名称', '  专利类型', '  专利号']);
+            break;
+        case "学术交流":
+            addEachAchievementItem(spanId, itemId, itemIndex - 1,"AchievementAcademicExchangeReport",
+                ['academic_exchange_publication_name', 'academic_exchange_name', 'academic_exchange_type',
+                    'academic_exchange_address', "academic_exchange_time"],
+                ['学术交流发表成果名称', '  学术交流名称', '  学术交流类型', '  报告的地点', '  报告的时间']);
+            break;
+        case "学术交流报告":
+            addEachAchievementItem(spanId, itemId, itemIndex - 1,"AchievementAcademicExchange",
+                ['academic_exchange_publication_name', 'academic_exchange_name', 'academic_exchange_time'],
+                ['学术交流发表成果名称', '  学术交流名称', '  报告的地点']);
+            break;
+        default :
+    }
+}
+
+
+// 实时增加表单
+function addEachAchievementItem(spanId, itemId, counter, subclass,
+                                achievement_item_attribute_names, achievement_item_titles) {
+    var span = document.getElementById(spanId);
+    if (span != null) {
+        var divObj = document.createElement("div"), fileObj, delObj;   // 添加div
+        divObj.id = itemId;
+        var achievement_item_attributes = new Array(achievement_item_attribute_names.length);
+        // IE
+        if ((navigator.userAgent.indexOf("MSIE") != -1)) {
+            for (var i = 0; i < achievement_item_attributes.length; i++) {
+                achievement_item_attributes[i] = document.createElement("<input id='achievement_item_" + counter + "_" + achievement_item_attribute_names[i] +
+                    " name='achievement_item[" + counter + "][" + achievement_item_attribute_names[i] + "]' type='text'>");
+            }
+            delObj = document.createElement("<input type=button onclick=delInputFile('" + spanId + "','" + itemId + "') />");
+//            var hideSubclassObj = document.createElement("<input value=" +subclass +" name='achievement_item[" + counter + "][type]' type='hidden'>")
+        }
+        else {
+            for (var i = 0; i < achievement_item_attributes.length; i++) {
+                achievement_item_attributes[i] = document.createElement("input");
+                achievement_item_attributes[i].type = "text";
+                achievement_item_attributes[i].id = "achievement_item_" + counter + "_" + achievement_item_attribute_names[i];
+                achievement_item_attributes[i].name = "achievement_item[" + counter + "][" + achievement_item_attribute_names[i] + "]";
+            }
+            delObj = document.createElement("input");
+            delObj.type = "button";
+            delObj.setAttribute("onclick", "delInputFile('" + spanId + "','" + itemId + "')", 0);
+
+        }
+        for (var i = 0; i < achievement_item_titles.length; i++) {
+            divObj.appendChild(document.createTextNode(achievement_item_titles[i]));
+            divObj.appendChild(achievement_item_attributes[i]);
+            if (i == 3) // 4个元素换行
+                divObj.appendChild(document.createElement("br"));
+        }
+        delObj.value = "删除";
+        divObj.appendChild(delObj);
+        var hideSubclassObj = document.createElement("input");
+        hideSubclassObj.value = subclass;
+        hideSubclassObj.name = "achievement_item[" + counter + "][type]"
+        hideSubclassObj.type = 'hidden'
+        divObj.appendChild(hideSubclassObj);
+
+        span.appendChild(divObj);
+    }
+}
+
+function delInputFile(spanId, itemId) {
+    var span = document.getElementById(spanId);
+    var divObj = document.getElementById(itemId);
+    if (span != null && divObj != null) {
+        span.removeChild(divObj);
+    }
+}
+
+var otherItemIndex = 0; // 添加其他信息个数
+function addOtherItem(type)  // type: achievement_item type
+{
+    var spanId = "add_other_form"; // 添加的金额条目
+    var itemId = "other_item_div_" + (otherItemIndex++);
+    switch (type) {
+        case '境外高校学习经历':
+            addEachAchievementItem(spanId, itemId, otherItemIndex-1, "OtherStudy",
+                ['project_name', 'country', 'university', 'academy', 'started_at', 'ended_at'],
+                ['项目名称', '  国别（地区）', '  学校名称', '  学院名称', '  开始时间', '  结束时间']);
+            break;
+        case '就业单位':
+            addEachAchievementItem(spanId, itemId, otherItemIndex-1, "OtherEmployment",
+                ['company', 'company_address', 'company_property', 'job_category'],
+                ['单位名称', '  省市', '  单位性质', '  岗位类别']);
+            break
+        default :
+    }
+}

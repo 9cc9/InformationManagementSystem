@@ -1,0 +1,55 @@
+
+function PrintPart(id_str, data)//id-str 内容中的id
+{
+    var el = document.getElementById(id_str);
+    var iframe = document.createElement('IFRAME');
+    var doc = null;
+    iframe.setAttribute('style', 'position:absolute;width:0px;height:0px;left:-500px;top:-500px;');
+    document.body.appendChild(iframe);
+    doc = iframe.contentWindow.document;
+    doc.write('<div>' + el.innerHTML + '</div>');
+    doc.close();
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    if (navigator.userAgent.indexOf("MSIE") > 0)
+    {
+        document.body.removeChild(iframe);
+    }
+}
+
+function PrintFundItem(element_id, fund_item)//id-str 内容中的id
+{
+    var element = document.getElementById(element_id);
+    var iframe = document.createElement('IFRAME');
+    var doc = null;
+    iframe.setAttribute('style', 'position:absolute;width:0px;height:0px;left:-500px;top:-500px;');
+    document.body.appendChild(iframe);
+    doc = iframe.contentWindow.document;
+    doc.write(CreatePrintString(fund_item));
+    doc.close();
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    if (navigator.userAgent.indexOf("MSIE") > 0)
+    {
+        document.body.removeChild(iframe);
+    }
+}
+
+// 创建打印文本
+function CreatePrintString(fund_item){
+    var current_time = new Date();
+    var print_string = "<div>";
+    print_string += "<div style='text-align: center;'>"
+    print_string += "获得者经费申请报销单<div/>";
+    print_string += "<div style='padding: 200px 0 200px 0; text-align: left;'>获得者于" + fund_item.fund_created_at;
+    print_string += "申请报销参加高水平会议" + fund_item.conference + "元，发表高水平论文";
+    print_string += fund_item.paper + "元，查询文献";
+    print_string += fund_item.search_paper + "元，其他可以报销";
+    print_string += fund_item.other + "元，共计";
+    print_string += fund_item.total + "元。</div>";
+    print_string += "研究生院经手人：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    print_string += current_time.getFullYear() + "年" + (current_time.getMonth()+1) + "月" + current_time.getDate()+ "日";
+    print_string += "</div>";
+    return  print_string;
+
+}

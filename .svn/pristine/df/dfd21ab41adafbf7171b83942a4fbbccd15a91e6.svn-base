@@ -1,0 +1,19 @@
+<body>
+<div id="login">
+  <%= form_tag login_path do -%>
+      <label for="login">&nbsp;用户名&nbsp;</label><%= text_field_tag 'name', nil, :style => "width:150px" %>
+      <br/>
+      <br/>
+      <label for="password">通行密码</label><%= password_field_tag 'password', nil, :style => "width:150px" -%>
+      <br/>
+      <br/>
+
+      <p><%= check_box_tag 'remember_me', 'yes', false, :style => "margin-left:50px;" %><label for="remember_me">&nbsp;记住登录状态</label>
+      </p>
+
+      <p><%= submit_tag '登录', :style => "margin-left:55px;", :class => "issue" %>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/forgot_password_form">忘记密码了</a>
+      </p>
+  <% end -%>
+</div>
+</body>

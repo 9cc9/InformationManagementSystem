@@ -1,0 +1,11 @@
+class Student < ActiveRecord::Base
+  attr_accessible :academy, :doctor_type, :email, :graduation_time,
+                  :is_graduated, :major, :name, :phone_number, :school_number, :teacher_name
+
+  has_many :achievement_items, :foreign_key => "student_id"  # 关联achievement_items
+  has_many :achievement_periodical_papers, :foreign_key => "student_id"  # 关联periodical_papers
+  has_many :achievement_conference_papers, :foreign_key => "student_id"  # 关联conference_papers
+  has_many :achievement_patents, :foreign_key => "student_id"  # 关联achievement_patents
+  has_many :achievement_academic_exchanges, :foreign_key => "student_id"  # 关联achievement_academic_exchanges
+  has_many :achievement_academic_exchange_reports, :foreign_key => "student_id"  # 关联achievement_academic_exchange_reports
+end

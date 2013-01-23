@@ -1,0 +1,15 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  项目管理 >  修改项目</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<%= render 'form' %>

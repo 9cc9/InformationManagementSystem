@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Paper title:</b>
+  <%= @project.paper_title %>
+</p>
+
+<p>
+  <b>Started at:</b>
+  <%= @project.started_at %>
+</p>
+
+<p>
+  <b>Ended at:</b>
+  <%= @project.ended_at %>
+</p>
+
+<p>
+  <b>Stage:</b>
+  <%= @project.stage %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @project.status %>
+</p>
+
+<p>
+  <b>Current achievement:</b>
+  <%= @project.current_achievement %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%= @project.student_id %>
+</p>
+
+<p>
+  <b>Project type:</b>
+  <%= @project.project_type %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

@@ -1,0 +1,8 @@
+class Project < ActiveRecord::Base
+  attr_accessible :current_achievement, :paper_title,
+                  :project_type, # 电子科技大学优秀博士生出国培养、教育部学术新人奖、中央高校基本科研业务费、电子科技大学优博选培计划、电子科技大学优博培育基金、电子科技大学优秀博士生学术支持计划项目
+                  :stage, # 项目当前阶段（申请阶段、立项阶段、结题阶段）
+                  :status, # 项目当前状态（包括待审核、审核通过、审核不通过）
+                  :started_at, :ended_at,
+                  :student_id # 关联学生id
+end

@@ -1,0 +1,46 @@
+<div>
+  <table class="navigation_bar">
+    <tr>
+      <td>
+        <div align="center"><%= image_tag("/assets/home.png") %></div>
+      </td>
+      <td>
+        <span class="navigation_bar">  项目管理 >  已立项的项目</span>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<table class="norm_table_have_border" cellspacing="1" style="width: 970px;table-layout:fixed">
+  <thead>
+  <tr class="index_table_second_specs" id="index_table_second_specs_thead">
+    <td width="15%" onclick="$.sortTable.sort('index_table_second',0)">拟定论文题目</td>
+    <td width="25%" onclick="$.sortTable.sort('index_table_second',1)">项目类型</td>
+    <td width="10%" onclick="$.sortTable.sort('index_table_second',2)">项目当前阶段</td>
+    <td width="10%" onclick="$.sortTable.sort('index_table_second',3)">项目当前状态</td>
+    <td width="10%" onclick="$.sortTable.sort('index_table_second',4)">关联学生</td>
+    <td width="30%">操作</td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @projects.each do |project| %>
+      <tr class="index_table_second_specs">
+        <td><%= project.paper_title %></td>
+        <td><%= project.project_type %></td>
+        <td><%= project.stage %></td>
+        <td><%= project.status %></td>
+        <td><%= project.student.name %></td>
+
+        <td>
+          <%= link_to '详情', project %>
+          <%= link_to '修改', edit_project_path(project) %>
+          <%= link_to '删除', project, :method => :delete, :data => {:confirm => '是否确认删除此项目?'} %>
+          <%= link_to '资费管理', fund_management_show_path(project.id) %>
+          <%= link_to '文档管理', file_management_show_path(project.id) %>
+          <%= link_to '通过审核', pass_project_path(project.id), :data => {:confirm => '是否确认通过审核?'} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
