@@ -5,7 +5,7 @@
         <div align="center"><%= image_tag("/assets/home.png") %></div>
       </td>
       <td>
-        <span class="navigation_bar">  学生管理 >  搜索结果</span>
+        <span class="navigation_bar">  学生管理 >  学生列表</span>
       </td>
     </tr>
   </table>
@@ -17,7 +17,7 @@
       学院:<%= select_tag(:academy, options_for_select(%w{- 通信抗干扰技术国家级重点实验室 通信与信息工程学院 电子工程学院 微电子与固体电子学院}, params[:academy])) %>
       专业:<%= text_field_tag :major, nil, :size => 10, :placeholder => '请输入关键字' %>
       <input name="submit" type="submit" style="margin-left: 10px; margin-right: 10px;" value="搜索"/>
-      <a href="#" onclick="PrintPart('selected_printer');">打印</a>
+      <a href="#" onclick="PrintSearchResults('selected_printer');">打印本页</a>
   <% end %>
 </div>
 
@@ -26,7 +26,7 @@
   <tr>
     <td colspan="7" id="operate_list">
       <div class="digg_pagination">
-        <a href="#" onclick="PrintSearchResults(<%=search_results(@students).to_json%>);">打印当前页</a>
+        <%= will_paginate @students, will_paginate_options%>
       </div>
     </td>
   </tr>
@@ -36,4 +36,3 @@
 <% content_for(:header) do %>
     <%= stylesheet_link_tag "pagination" %>
 <%end%>
-

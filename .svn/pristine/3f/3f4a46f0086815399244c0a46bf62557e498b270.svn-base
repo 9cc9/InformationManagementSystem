@@ -81,7 +81,7 @@ class Student < ActiveRecord::Base
      "academy" => self.academy,
      "major" => self.major,
      "achievement" => achievement
-    }
+    }.to_json
   end
 
 end

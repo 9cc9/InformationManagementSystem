@@ -1,12 +1,9 @@
 # encoding: utf-8
 class Project < ActiveRecord::Base
-  extend ExtendModel
-  # 定义started_at_with_format/ended_at_with_format
-  def_each_datetime_with_format :started_at, :ended_at
 
-  scope :pending_review_projects, :conditions => {:stage => "申请阶段", :status => "待审核"}, :order => 'created_at DESC' # 待审核的项目列表
-  scope :established_projects, :conditions => {:stage => "立项阶段", :status => "待审核"}, :order => 'created_at DESC' # 已经立项的项目列表
-  scope :pending_defense_projects, :conditions => {:stage => "结题阶段"}, :order => 'created_at DESC' # 待答辩的项目列表
+  scope :pending_review_projects, :conditions => {:stage => "申请阶段", :status => "待审核"} # 待审核的项目列表
+  scope :established_projects, :conditions => {:stage => "立项阶段", :status => "待审核"} # 已经立项的项目列表
+  scope :pending_defense_projects, :conditions => {:stage => "结题阶段"} # 待答辩的项目列表
 
   attr_accessible :current_achievement,
                   :paper_title, # 拟定论文题目
@@ -24,7 +21,6 @@ class Project < ActiveRecord::Base
              :foreign_key => "student_id"
 
 
-
   def stage_mapping
     {"申请阶段" => "立项阶段", "立项阶段" => "结题阶段"}
   end
@@ -37,12 +33,6 @@ class Project < ActiveRecord::Base
   # 结题
   def complete_status
     self.update_attribute(:status, "审核通过")
-  end
-
-  # 更换绑定student
-  def update_student(school_number)
-    self.student = Student.find_by_school_number(school_number) if Student.find_by_school_number(school_number) # 能找到对应学生才存入
-    self.save
   end
 
   # 成果项转为json数组，作为js函数入口参数
@@ -62,23 +52,8 @@ class Project < ActiveRecord::Base
      "student_academy" => self.student.academy,
      "stage" => self.stage,
      "residual_amount" => self.fund_management.residual_amount,
-     "started_at" => self.started_at_with_format
+     "started_at" => self.started_at.strftime("%Y-%m-%d")
     }
-  end
-
-  # 审核阶段json打印
-  # 将project信息转为json数组，列表页面打印
-  def defensed_information_to_json
-    {"student_name" => self.student.name,
-     "student_school_number" => self.student.school_number,
-     "student_major" => self.student.major,
-     "student_teacher_name" => self.student.teacher_name,
-     "student_academy" => self.student.academy,
-     "paper_title" => self.paper_title,
-     "project_type" => self.project_type,
-     "started_at" => self.started_at_with_format,
-     "ended_at" => self.ended_at_with_format
-    }.to_json
   end
 
 

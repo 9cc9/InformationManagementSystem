@@ -12,9 +12,6 @@
 # 报告的时间、地点、题目
 #####################################
 class AchievementItem < ActiveRecord::Base
-  extend ExtendModel
-  # 定义fund_created_at_with_format
-  def_each_datetime_with_format :achieved_at
 
 
   attr_accessible :academic_exchange_address, # 报告的地点（4.5类）

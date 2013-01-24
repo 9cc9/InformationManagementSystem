@@ -39,7 +39,7 @@
           <%= link_to '资费管理', fund_management_show_path(project.id) %>
           <%= link_to '文档管理', file_management_show_path(project.id) %>
           <%= link_to '结题', pass_project_path(project.id), :data => {:confirm => '是否确认通过审核?'} %>
-          <a href="#" onclick="PrintProjectItem(<%=project.defensed_information_to_json%>, <%=project.achieve_items_to_json%>);">打印</a>
+          <a href="#" onclick="PrintProjectItem(<%=project.to_json%>, <%=project.student.to_json%>, <%=project.achieve_items_to_json%>);">打印</a>
         </td>
       </tr>
   <% end %>

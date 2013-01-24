@@ -1,8 +1,4 @@
 class FundItem < ActiveRecord::Base
-  extend ExtendModel
-  # 定义fund_created_at_with_format
-  def_each_datetime_with_format :fund_created_at
-
   attr_accessible :conference, # 高水平会议
                   :paper,  # 高水平论文
                   :search_paper, # 查询文献
@@ -23,6 +19,9 @@ class FundItem < ActiveRecord::Base
     self.fund_created_at = Time.now
   end
 
+  def fund_created_at_with_format
+    (self.fund_created_at)?self.fund_created_at.strftime("%Y-%m-%d"):"2013-3-1"
+  end
 
   # 将fund_item信息转为json数组，列表页面打印
   def information_to_json

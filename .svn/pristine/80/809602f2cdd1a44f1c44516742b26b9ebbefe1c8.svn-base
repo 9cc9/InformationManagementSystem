@@ -72,20 +72,22 @@ function CreatePrintFundString(fund_item, project_type, student_name) {
 }
 
 // 打印结题项目信息条目
-function PrintProjectItem(project, achieve_items)//achieve_items json
+function PrintProjectItem(project, student, achieve_items)//achieve_items json
 {
-    PrintBaseItem(CreatePrintProjectString(project, achieve_items));
+    PrintBaseItem(CreatePrintProjectString(project, student, achieve_items));
 }
 
 // 结题项目信息
-function CreatePrintProjectString(project, achieve_items) {
+function CreatePrintProjectString(project, student, achieve_items) {
     var data_key = ["姓名", "学号", "专业", "导师", "学院", "拟定学位论文题目", "获得资助类型", "获得资助时间", "结题时间"];
-    var data_value = [project.student_name, project.student_school_number, project.student_major, project.student_teacher_name, project.student_academy,
+    var data_value = [student.name, student.school_number, student.major, student.teacher_name, student.academy,
         project.paper_title, project.project_type, project.started_at, project.ended_at];  // print information
+
     var print_string = AddPrintTitleInformation(project.project_type + "获得者答辩申请单");
-    print_string += "<table style='padding: 100px;'>";
+    print_string += "<table cellspacing='1' style='padding: 100px;>";
     for (var i = 0; i < data_key.length; i++) {
-        print_string += "<tr><td style='border: 1px solid silver;'>" + data_key[i] + "</td><td style='border: 1px solid silver;'>" + data_value[i] + "</td></tr>";
+        print_string += "<tr>" +
+            "<td style='border: 1px solid silver;'>" + data_key[i] + "</td><td style='border: 1px solid silver;'>" + data_value[i] + "</td></tr>";
     }
     print_string += "</table>";
     return AddPrintEndingInformation(CreatePrintAchievementString(print_string, achieve_items));
@@ -93,6 +95,7 @@ function CreatePrintProjectString(project, achieve_items) {
 
 // 打印成果信息
 function CreatePrintAchievementString(print_string, achieve_items) {
+//    var data_key = ["期刊论文", "会议论文", "专利", "学术交流", "学术交流报告"];
     print_string += "<table cellspacing='1'>";
     for (var i = 0; i < achieve_items.periodical_papers.length; i++) {  // 期刊论文
         print_string += "<tr class='index_table_second_specs'>" +
@@ -147,38 +150,22 @@ function CreatePrintAchievementString(print_string, achieve_items) {
     return print_string;
 }
 
-// 打印student搜索结果
+// 打印搜索结果
 function PrintSearchResults(students) {
     var print_string = AddPrintTitleInformation("电子科技大学博士生查询结果");
     var ths = ["姓名", "项目类别", "学号", "学院", "专业", "成果"];
     print_string += "<table cellspacing='1' style='width: 970px;table-layout:fixed'>";
     print_string = AddTheadInformation(print_string, ths);
+    var object = students[0];
+    alert(object.name);
     for (var i = 0; i < students.length; i++) {
+
         print_string += "<tr>" + "<td style='border: 1px solid silver;'>" + students[i].name + "</td>" +
             "<td style='border: 1px solid silver;'>" + students[i].project_type + "</td>" +
             "<td style='border: 1px solid silver;'>" + students[i].school_number + "</td>" +
             "<td style='border: 1px solid silver;'>" + students[i].academy + "</td>" +
             "<td style='border: 1px solid silver;'>" + students[i].major + "</td>" +
             "<td style='border: 1px solid silver;'>" + students[i].achievement + "</td>" +
-            "</tr>";
-    }
-    print_string += "</table>";
-    PrintBaseItem(print_string);
-}
-
-// 打印project搜索结果
-function PrintProjectSearchResults(projects) {
-    var print_string = AddPrintTitleInformation("电子科技大学博士生培育计划情况查询");
-    var ths = ["学生", "项目类别", "学院", "项目当前阶段", "剩余金额", "立项时间"];
-    print_string += "<table cellspacing='1' style='width: 970px;table-layout:fixed'>";
-    print_string = AddTheadInformation(print_string, ths);
-    for (var i = 0; i < projects.length; i++) {
-        print_string += "<tr>" + "<td style='border: 1px solid silver;'>" + projects[i].student_name + "</td>" +
-            "<td style='border: 1px solid silver;'>" + projects[i].project_type + "</td>" +
-            "<td style='border: 1px solid silver;'>" + projects[i].student_academy + "</td>" +
-            "<td style='border: 1px solid silver;'>" + projects[i].stage + "</td>" +
-            "<td style='border: 1px solid silver;'>" + projects[i].residual_amount + "</td>" +
-            "<td style='border: 1px solid silver;'>" + projects[i].started_at + "</td>" +
             "</tr>";
     }
     print_string += "</table>";

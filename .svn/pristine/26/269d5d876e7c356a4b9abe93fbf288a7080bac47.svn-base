@@ -66,8 +66,8 @@
         <td><%= item.search_paper %></td>
         <td><%= item.other %></td>
         <td><%= item.total %></td>
-        <td><%= item.fund_created_at_with_format%></td>
-        <td><a href="#" onclick="PrintFundItem(<%=item.information_to_json.to_json%>, '<%=@project.project_type%>', '<%=@project.student.name%>');">打印</a></td>
+        <td><%= item.fund_created_at%></td>
+        <td><a href="#" onclick="PrintFundItem(<%=item.to_json%>, '<%=@project.project_type%>', '<%=@project.student.name%>');">打印</a></td>
       </tr>
   <% end %>
   <tr class="index_table_second_specs">
